@@ -22,10 +22,10 @@ namespace oop_final
         {
             InitializeComponent();
             currentTeacher = teacher;
-            DisplayTeacherInfo();
+            DisplayTeacherInfo(currentTeacher);
         }
 
-        private void DisplayTeacherInfo()
+        private void DisplayTeacherInfo(Teacher teacher)
         {
             if (currentTeacher != null)
             {

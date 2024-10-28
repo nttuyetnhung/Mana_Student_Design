@@ -213,6 +213,7 @@
             btnSearchUpdate.TabIndex = 26;
             btnSearchUpdate.Text = "Tìm kiếm";
             btnSearchUpdate.UseVisualStyleBackColor = true;
+            btnSearchUpdate.Click += btnSearchUpdate_Click;
             // 
             // comboBox8
             // 
@@ -321,12 +322,13 @@
             listView1.Columns.AddRange(new ColumnHeader[] { clnStt, clmMaHS, clnTen, ClnDiemMieng, clnDiem15p, clnDiemGiuaKi, clnDiemCuoiKi, clnDiemTBM });
             listView1.Font = new Font("Times New Roman", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             listView1.GridLines = true;
-            listView1.Location = new Point(12, 426);
+            listView1.Location = new Point(12, 446);
             listView1.Name = "listView1";
             listView1.Size = new Size(1354, 428);
             listView1.TabIndex = 10;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
+            // listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // clnStt
             // 
@@ -390,6 +392,7 @@
             btnSaveSc.TabIndex = 11;
             btnSaveSc.Text = "Lưu";
             btnSaveSc.UseVisualStyleBackColor = false;
+            btnSaveSc.Click += btnSaveSc_Click;
             // 
             // btnExitScore
             // 
