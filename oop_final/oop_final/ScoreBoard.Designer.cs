@@ -122,6 +122,7 @@
             btnSearchScore.TabIndex = 14;
             btnSearchScore.Text = "Tìm kiếm";
             btnSearchScore.UseVisualStyleBackColor = true;
+            btnSearchScore.Click += btnSearchScore_Click;
             // 
             // btnExitScore
             // 
@@ -132,14 +133,14 @@
             btnExitScore.TabIndex = 13;
             btnExitScore.Text = "Thoát";
             btnExitScore.UseVisualStyleBackColor = true;
-            btnExitScore.Click += this.btnExitScore_Click;
+            btnExitScore.Click += btnExitScore_Click;
             // 
             // lvSBTeacher
             // 
             lvSBTeacher.Columns.AddRange(new ColumnHeader[] { clnSTT, clnMaHS, clnTen, ClnToan, clnVan, clnNgoaingu, clnVat, clnHoa, clnSinh, clnSu, clnDia, clnGDCD, clnTin, clnCongnghe });
             lvSBTeacher.Font = new Font("Times New Roman", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lvSBTeacher.GridLines = true;
-            lvSBTeacher.Location = new Point(6, 78);
+            lvSBTeacher.Location = new Point(4, 85);
             lvSBTeacher.Name = "lvSBTeacher";
             lvSBTeacher.Size = new Size(1631, 528);
             lvSBTeacher.TabIndex = 5;
@@ -292,6 +293,7 @@
             button1.TabIndex = 15;
             button1.Text = "Tìm kiếm";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // listView1
             // 
@@ -414,6 +416,7 @@
             Name = "ScoreBoard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Bảng điểm";
+            Load += ScoreBoard_Load;
             tcScore.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();

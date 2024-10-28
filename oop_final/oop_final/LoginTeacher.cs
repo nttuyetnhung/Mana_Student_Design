@@ -27,35 +27,26 @@ namespace oop_final
 
         }
 
-        List<Teacher> teacherAccount = AccountTeacher.Instance.teacherAccounts;
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (checkLogin(txbTeacherName.Text, txbTeacherPass.Text))
-            {
-                InfoTeacher f = new InfoTeacher();
-                this.Hide();
-                f.ShowDialog();
-                this.Show();
+            string username = txbTeacherName.Text;
+            string password = txbTeacherPass.Text;
 
+            Teacher teacher = AccountTeacher.Instance.GetTeacherByUsername(username);
+            if (teacher != null && teacher.matKhauGV == password)
+            {
+                InfoTeacher infoTeacher = new InfoTeacher(teacher);
+                this.Hide();
+                infoTeacher.ShowDialog();
+                this.Show();
             }
+
             else
             {
                 MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác.", "Thông báo");
             }
 
         }
-        public bool checkLogin(string username, string password)
-        {
-            for (int i = 0; i < teacherAccount.Count; i++)
-            {
-                if (username == teacherAccount[i].tenDangNhapGV && password == teacherAccount[i].matKhauGV)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
 
         private void btnExit_Click(object sender, EventArgs e)
         {
