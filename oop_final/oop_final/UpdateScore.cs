@@ -45,11 +45,11 @@ namespace oop_final
                 // Thêm các học sinh khác...
             };
 
-            var uniqueClasses = studentAccounts.Select(s => s.maLop).Distinct().ToList();
+            List<string> uniqueClasses = studentAccounts.Select(s => s.maLop).Distinct().ToList();
             comboBox1.Items.AddRange(uniqueClasses.ToArray());
-            var uniqueIDs = studentAccounts.Select(s => s.maHS).Distinct().ToList();
+            List<string> uniqueIDs = studentAccounts.Select(s => s.maLop).Distinct().ToList();
             comboBox7.Items.AddRange(uniqueIDs.ToArray());
-            var uniqueNames = studentAccounts.Select(s => s.hoVaTen).Distinct().ToList();
+            List<string> uniqueNames = studentAccounts.Select(s => s.maLop).Distinct().ToList();
             comboBox8.Items.AddRange(uniqueNames.ToArray());
 
             comboBox3.Items.AddRange(new string[] { "Ky1", "Ky2" });
@@ -67,7 +67,7 @@ namespace oop_final
 
             if (!string.IsNullOrEmpty(selectedID))
             {
-                var student = studentAccounts.FirstOrDefault(s => s.maHS == selectedID);
+                Student student = studentAccounts.FirstOrDefault(s => s.maHS == selectedID);
                 if (student != null)
                 {
                     comboBox8.Text = student.hoVaTen;
@@ -118,7 +118,7 @@ namespace oop_final
             string selectedID = comboBox7.Text;
             string selectedStudentName = comboBox8.Text;
 
-            var student = studentAccounts.Find(s =>
+            Student student = studentAccounts.Find(s =>
                 s.maLop == selectedClass &&
                 s.maHS == selectedID &&
                 s.hoVaTen == selectedStudentName);

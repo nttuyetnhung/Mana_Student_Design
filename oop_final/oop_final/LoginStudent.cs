@@ -2,6 +2,8 @@
 {
     public partial class LoginStudent : Form
     {
+        private Dictionary<string, Student> studentAccounts = AccountStudent.Instance.studentAccounts;
+
         public LoginStudent()
         {
             InitializeComponent();
@@ -16,35 +18,36 @@
             this.Show();
         }
 
-        List<Student> studentAccount = AccountStudent.Instance.studentAccounts;
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (checkLogin(txbStudentName.Text, txbStudentPass.Text))
-            {
-                InfoStudent f = new InfoStudent();
-                this.Hide();
-                f.ShowDialog();
-                this.Show();
+            string username = txbStudentName.Text;
+            string password = txbStudentPass.Text;
 
-            }
-            else
+            foreach (var student in studentAccounts.Values)
             {
+                if (username == student.tenDangNhapHS && password == student.matKhauHS)
+                {
+                    InfoStudent infoStudent = new InfoStudent(student);
+                    this.Hide();
+                    infoStudent.ShowDialog();
+                    this.Show();
+                    return;
+                }
                 MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác.", "Thông báo");
-            }
 
+            }
         }
         public bool checkLogin(string username, string password)
         {
-            for (int i = 0; i < studentAccount.Count; i++)
+            foreach (var student in studentAccounts.Values)
             {
-                if (username == studentAccount[i].tenDangNhapHS && password == studentAccount[i].matKhauHS)
+                if (username == student.tenDangNhapHS && password == student.matKhauHS)
                 {
                     return true;
                 }
             }
             return false;
         }
-
         private void LoginStudent_Load(object sender, EventArgs e)
         {
 

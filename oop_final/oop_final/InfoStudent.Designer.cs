@@ -34,9 +34,6 @@
             panel6 = new Panel();
             txbClass = new TextBox();
             label6 = new Label();
-            panel1 = new Panel();
-            cbYears = new ComboBox();
-            label1 = new Label();
             panel5 = new Panel();
             textBox1 = new TextBox();
             label5 = new Label();
@@ -67,7 +64,6 @@
             tcAccStudent.SuspendLayout();
             tabPage1.SuspendLayout();
             panel6.SuspendLayout();
-            panel1.SuspendLayout();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
@@ -90,7 +86,6 @@
             // 
             tabPage1.Controls.Add(btnExit);
             tabPage1.Controls.Add(panel6);
-            tabPage1.Controls.Add(panel1);
             tabPage1.Controls.Add(panel5);
             tabPage1.Controls.Add(panel4);
             tabPage1.Controls.Add(panel3);
@@ -145,33 +140,6 @@
             label6.Size = new Size(65, 32);
             label6.TabIndex = 2;
             label6.Text = "Lớp";
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(cbYears);
-            panel1.Controls.Add(label1);
-            panel1.Location = new Point(76, 350);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(770, 55);
-            panel1.TabIndex = 10;
-            // 
-            // cbYears
-            // 
-            cbYears.FormattingEnabled = true;
-            cbYears.Location = new Point(274, 7);
-            cbYears.Name = "cbYears";
-            cbYears.Size = new Size(469, 40);
-            cbYears.TabIndex = 5;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(42, 10);
-            label1.Name = "label1";
-            label1.Size = new Size(136, 32);
-            label1.TabIndex = 4;
-            label1.Text = "Niên khóa";
             // 
             // panel5
             // 
@@ -423,8 +391,6 @@
             tabPage1.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             panel4.ResumeLayout(false);
@@ -449,9 +415,6 @@
         private Panel panel6;
         private TextBox txbClass;
         private Label label6;
-        private Panel panel1;
-        private ComboBox cbYears;
-        private Label label1;
         private Panel panel5;
         private Label label5;
         private Panel panel4;
