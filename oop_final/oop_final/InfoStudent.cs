@@ -12,10 +12,23 @@ namespace oop_final
 {
     public partial class InfoStudent : Form
     {
-        public InfoStudent()
+        private Student _student;
+        public InfoStudent(Student student)
         {
             InitializeComponent();
+            _student = student;
+            DisplayStudentInfo(_student);
         }
+        private void DisplayStudentInfo(Student student)
+        {
+            txbName.Text = _student.hoVaTen;
+            txbID.Text = _student.maHS;
+            txbClass.Text = _student.maLop;
+            checkBox1.Checked = _student.gioiTinh == 0;
+            checkBox2.Checked = _student.gioiTinh == 1;
+            textBox1.Text = student.ngSinh.ToString("dd/MM/yyyy");
+        }
+
 
         private void btnExit_Click(object sender, EventArgs e)
         {
