@@ -45,15 +45,42 @@ namespace oop_final
                 // Thêm các học sinh khác...
             };
 
-            List<string> uniqueClasses = studentAccounts.Select(s => s.maLop).Distinct().ToList();
+            // Tạo danh sách các lớp duy nhất
+            List<string> uniqueClasses = new List<string>();
+            foreach (Student s in studentAccounts)
+            {
+                if (!uniqueClasses.Contains(s.maLop))
+                {
+                    uniqueClasses.Add(s.maLop);
+                }
+            }
             comboBox1.Items.AddRange(uniqueClasses.ToArray());
-            List<string> uniqueIDs = studentAccounts.Select(s => s.maLop).Distinct().ToList();
+
+            // Tạo danh sách các mã học sinh (IDs) duy nhất
+            List<string> uniqueIDs = new List<string>();
+            foreach (Student s in studentAccounts)
+            {
+                if (!uniqueIDs.Contains(s.maHS))
+                {
+                    uniqueIDs.Add(s.maHS);
+                }
+            }
             comboBox7.Items.AddRange(uniqueIDs.ToArray());
-            List<string> uniqueNames = studentAccounts.Select(s => s.maLop).Distinct().ToList();
+
+            // Tạo danh sách các tên học sinh duy nhất
+            List<string> uniqueNames = new List<string>();
+            foreach (Student s in studentAccounts)
+            {
+                if (!uniqueNames.Contains(s.hoVaTen))
+                {
+                    uniqueNames.Add(s.hoVaTen);
+                }
+            }
             comboBox8.Items.AddRange(uniqueNames.ToArray());
 
-            comboBox3.Items.AddRange(new string[] { "Ky1", "Ky2" });
-            comboBox4.Items.AddRange(new string[] { "2023-2024", "2024-2025" });
+
+            comboBox3.Items.AddRange(new string[] { "Kỳ 1", "Kỳ 2" });
+            comboBox4.Items.AddRange(new string[] { "2023-2024"});
             comboBox2.Items.AddRange(new string[]
             {
                 "Toán Học", "Ngữ Văn", "Ngoại Ngữ", "Vật Lý", "Hóa học", "Sinh Học",
@@ -67,7 +94,16 @@ namespace oop_final
 
             if (!string.IsNullOrEmpty(selectedID))
             {
-                Student student = studentAccounts.FirstOrDefault(s => s.maHS == selectedID);
+                Student student = null;
+                foreach (Student s in studentAccounts)
+                {
+                    if (s.maHS == selectedID)
+                    {
+                        student = s;
+                        break;
+                    }
+                }
+
                 if (student != null)
                 {
                     comboBox8.Text = student.hoVaTen;
@@ -88,8 +124,7 @@ namespace oop_final
                 double.TryParse(txb4.Text, out double diemCuoiKy);
 
                 // Tính điểm trung bình
-                double diemTBC = (diem15P + diemMieng + diemGiuaKy * 2 + diemCuoiKy * 3) / 7;
-
+                double diemTBC = Math.Round((diem15P + diemMieng + diemGiuaKy * 2 + diemCuoiKy * 3) / 7, 2);
                 // Cập nhật các cột điểm trong ListView
                 foreach (ListViewItem item in listView1.Items)
                 {
@@ -118,10 +153,16 @@ namespace oop_final
             string selectedID = comboBox7.Text;
             string selectedStudentName = comboBox8.Text;
 
-            Student student = studentAccounts.Find(s =>
-                s.maLop == selectedClass &&
-                s.maHS == selectedID &&
-                s.hoVaTen == selectedStudentName);
+            Student student = null;
+            foreach (Student s in studentAccounts)
+            {
+                if (s.maLop == selectedClass && s.maHS == selectedID && s.hoVaTen == selectedStudentName)
+                {
+                    student = s;
+                    break;
+                }
+            }
+
 
             if (student != null)
             {
