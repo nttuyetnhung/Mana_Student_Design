@@ -282,6 +282,7 @@
             btnSearchUdSor.TabIndex = 27;
             btnSearchUdSor.Text = "Tìm kiếm";
             btnSearchUdSor.UseVisualStyleBackColor = true;
+            btnSearchUdSor.Click += btnSearchUdSor_Click_1;
             // 
             // lvList
             // 
