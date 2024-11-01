@@ -69,7 +69,7 @@ namespace oop_final
        
         private void InfoTeacher_Load(object sender, EventArgs e)
         {
-
+            this.ActiveControl = label1;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

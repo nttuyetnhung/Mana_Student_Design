@@ -4,6 +4,7 @@
     {
         private Dictionary<string, Student> studentAccounts = AccountStudent.Instance.studentAccounts;
 
+
         public LoginStudent()
         {
             InitializeComponent();
@@ -22,12 +23,13 @@
         {
             string username = txbStudentName.Text;
             string password = txbStudentPass.Text;
+            Dictionary<string, List<SubjectScore>> scoreboard = GetScoreboard();
 
-            foreach (var student in studentAccounts.Values)
+            foreach (Student student in studentAccounts.Values)
             {
                 if (username == student.tenDangNhapHS && password == student.matKhauHS)
                 {
-                    InfoStudent infoStudent = new InfoStudent(student);
+                    InfoStudent infoStudent = new InfoStudent(student, scoreboard);
                     this.Hide();
                     infoStudent.ShowDialog();
                     this.Show();
@@ -39,7 +41,7 @@
         }
         public bool checkLogin(string username, string password)
         {
-            foreach (var student in studentAccounts.Values)
+            foreach (Student student in studentAccounts.Values)
             {
                 if (username == student.tenDangNhapHS && password == student.matKhauHS)
                 {
@@ -51,6 +53,10 @@
         private void LoginStudent_Load(object sender, EventArgs e)
         {
 
+        }
+        private Dictionary<string, List<SubjectScore>> GetScoreboard()
+        {
+            return new Dictionary<string, List<SubjectScore>>();
         }
     }
 }

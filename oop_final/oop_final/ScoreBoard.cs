@@ -45,7 +45,7 @@ namespace oop_final
             studentAccounts.Add(new Student { maHS = "HS18", maLop = "12A2", hoVaTen = "Phạm Quang Anh", gioiTinh = 1, tenDangNhapHS = "anhpham", matKhauHS = "anhpham" });
 
             // Populate comboBox1 (Năm học)
-            comboBox1.Items.AddRange(new string[] { "2022-2023", "2023-2024" });
+            comboBox1.Items.AddRange(new string[] { "2023-2024" });
 
             // Populate comboBox2 (Lớp học) - Lấy danh sách lớp unique từ dữ liệu
             List<string> uniqueClasses = studentAccounts.Select(s => s.maLop).Distinct().ToList();
@@ -88,7 +88,15 @@ namespace oop_final
             try
             {
                 // Lọc học sinh theo lớp
-                List<Student> studentsInClass = studentAccounts.Where(s => s.maLop == className).ToList();
+                List<Student> studentsInClass = new List<Student>();
+
+                foreach (Student s in studentAccounts)
+                {
+                    if (s.maLop == className)
+                    {
+                        studentsInClass.Add(s);
+                    }
+                }
 
                 lvSBTeacher.Items.Clear();
                 int stt = 1;
@@ -98,12 +106,12 @@ namespace oop_final
                     switch (stt)
                     {
                         case 1:
-                            student.MathScore = 10;
+                            student.MathScore = 8.5;
                             student.LiteratureScore = 9;
-                            student.ForeignLanguageScore = 8;
-                            student.PhysicsScore = 7;
-                            student.ChemistryScore = 9;
-                            student.BiologyScore = 10;
+                            student.ForeignLanguageScore = 9;
+                            student.PhysicsScore = 9;
+                            student.ChemistryScore = 8.5;
+                            student.BiologyScore = 7.5f;
                             student.HistoryScore = 8.6f;
                             student.GeographyScore = 9.5f;
                             student.CivicsScore = 10;
@@ -111,12 +119,12 @@ namespace oop_final
                             student.TechnologyScore = 8.7f;
                             break;
                         case 2:
-                            student.MathScore = 7.5f;
-                            student.LiteratureScore = 8.3f;
-                            student.ForeignLanguageScore = 9.4f;
-                            student.PhysicsScore = 6;
-                            student.ChemistryScore = 7.5f;
-                            student.BiologyScore = 8.2f;
+                            student.MathScore = 8;
+                            student.LiteratureScore = 9;
+                            student.ForeignLanguageScore = 8;
+                            student.PhysicsScore = 9;
+                            student.ChemistryScore = 8;
+                            student.BiologyScore = 9.5f;
                             student.HistoryScore = 8;
                             student.GeographyScore = 7.5f;
                             student.CivicsScore = 8;
@@ -124,12 +132,13 @@ namespace oop_final
                             student.TechnologyScore = 7.9f;
                             break;
                         case 3:
-                            student.MathScore = 8;
-                            student.LiteratureScore = 7.5f;
-                            student.ForeignLanguageScore = 6.7f;
-                            student.PhysicsScore = 9;
-                            student.ChemistryScore = 8;
-                            student.BiologyScore = 7.5f;
+                            
+                            student.MathScore = 9.5f;
+                            student.LiteratureScore = 8;
+                            student.ForeignLanguageScore = 9;
+                            student.PhysicsScore = 8.5f;
+                            student.ChemistryScore = 9;
+                            student.BiologyScore = 8.5f;
                             student.HistoryScore = 9;
                             student.GeographyScore = 8.8f;
                             student.CivicsScore = 8.9f;
@@ -184,6 +193,7 @@ namespace oop_final
         }
         // BẢNG ĐIỂM THEO MÔN
         private Dictionary<string, List<SubjectScore>> studentScores;
+        public List<SubjectScore> subjectScores = new List<SubjectScore>();
 
         private void InitializeTab2Data()
         {
@@ -191,7 +201,14 @@ namespace oop_final
             comboBox4.Items.AddRange(new string[] { "2023-2024" });
 
             // Khởi tạo dữ liệu lớp học
-            List<string> uniqueClasses = studentAccounts.Select(s => s.maLop).Distinct().ToList();
+            List<string> uniqueClasses = new List<string>();
+            foreach (var student in studentAccounts)
+            {
+                if (!uniqueClasses.Contains(student.maLop))
+                {
+                    uniqueClasses.Add(student.maLop);
+                }
+            }
             comboBox3.Items.AddRange(uniqueClasses.ToArray());
 
             // Khởi tạo dictionary lưu điểm của học sinh
@@ -202,42 +219,40 @@ namespace oop_final
 
             foreach (Student student in studentAccounts)
             {
-                List<SubjectScore> subjectScores = new List<SubjectScore>();
-
                 if (studentIndex % 3 == 0)
                 {
                     subjectScores = new List<SubjectScore>
                     {
-                new SubjectScore { MaMon = "TOAN", TenMon = "Toán Học", DiemMieng = 10, Diem15Phut = 8.5f, DiemGiuaKi = 9, DiemCuoiKi = 9.5f },
-                new SubjectScore { MaMon = "VAN", TenMon = "Ngữ Văn", DiemMieng = 8, Diem15Phut = 8, DiemGiuaKi = 8, DiemCuoiKi = 8 },
-                new SubjectScore { MaMon = "ANH", TenMon = "Ngoại Ngữ", DiemMieng = 9, Diem15Phut = 9.5f, DiemGiuaKi = 8.5f, DiemCuoiKi = 9 },
-                new SubjectScore { MaMon = "LY", TenMon = "Vật Lý", DiemMieng = 7.5f, Diem15Phut = 8, DiemGiuaKi = 9, DiemCuoiKi = 8.5f },
-                new SubjectScore { MaMon = "HOA", TenMon = "Hóa Học", DiemMieng = 8.5f, Diem15Phut = 9, DiemGiuaKi = 9, DiemCuoiKi = 9 },
-                new SubjectScore { MaMon = "SINH", TenMon = "Sinh Học", DiemMieng = 8, Diem15Phut = 8.5f, DiemGiuaKi = 9, DiemCuoiKi = 8.5f },
+                        new SubjectScore { MaMon = "TOAN", TenMon = "Toán Học", DiemMieng = 10, Diem15Phut = 8.5, DiemGiuaKi = 9, DiemCuoiKi = 9.5 },
+                        new SubjectScore { MaMon = "VAN", TenMon = "Ngữ Văn", DiemMieng = 8, Diem15Phut = 8, DiemGiuaKi = 8, DiemCuoiKi = 8 },
+                        new SubjectScore { MaMon = "ANH", TenMon = "Ngoại Ngữ", DiemMieng = 9, Diem15Phut = 9.5f, DiemGiuaKi = 8.5, DiemCuoiKi = 9 },
+                        new SubjectScore { MaMon = "LY", TenMon = "Vật Lý", DiemMieng = 7.5, Diem15Phut = 8, DiemGiuaKi = 9, DiemCuoiKi = 8.5 },
+                        new SubjectScore { MaMon = "HOA", TenMon = "Hóa Học", DiemMieng = 8.5, Diem15Phut = 9, DiemGiuaKi = 9, DiemCuoiKi = 9 },
+                        new SubjectScore { MaMon = "SINH", TenMon = "Sinh Học", DiemMieng = 8, Diem15Phut = 8.5f, DiemGiuaKi = 9, DiemCuoiKi = 8.5 },
                     };
                 }
                 else if (studentIndex % 3 == 1)
                 {
                     subjectScores = new List<SubjectScore>
                     {
-                new SubjectScore { MaMon = "TOAN", TenMon = "Toán Học", DiemMieng = 7, Diem15Phut = 7.5f, DiemGiuaKi = 8, DiemCuoiKi = 8 },
-                new SubjectScore { MaMon = "VAN", TenMon = "Ngữ Văn", DiemMieng = 9, Diem15Phut = 8.5f, DiemGiuaKi = 8.5f, DiemCuoiKi = 9 },
-                new SubjectScore { MaMon = "ANH", TenMon = "Ngoại Ngữ", DiemMieng = 8.5f, Diem15Phut = 8, DiemGiuaKi = 7.5f, DiemCuoiKi = 8 },
-                new SubjectScore { MaMon = "LY", TenMon = "Vật Lý", DiemMieng = 8, Diem15Phut = 9, DiemGiuaKi = 8.5f, DiemCuoiKi = 9 },
-                new SubjectScore { MaMon = "HOA", TenMon = "Hóa Học", DiemMieng = 9, Diem15Phut = 8, DiemGiuaKi = 8.5f, DiemCuoiKi = 8 },
-                new SubjectScore { MaMon = "SINH", TenMon = "Sinh Học", DiemMieng = 7.5f, Diem15Phut = 8, DiemGiuaKi = 8, DiemCuoiKi = 8.5f },
+                        new SubjectScore { MaMon = "TOAN", TenMon = "Toán Học", DiemMieng = 7, Diem15Phut = 7.5, DiemGiuaKi = 8, DiemCuoiKi = 8 },
+                        new SubjectScore { MaMon = "VAN", TenMon = "Ngữ Văn", DiemMieng = 9, Diem15Phut = 8.5, DiemGiuaKi = 8.5, DiemCuoiKi = 9 },
+                        new SubjectScore { MaMon = "ANH", TenMon = "Ngoại Ngữ", DiemMieng = 8.5, Diem15Phut = 8, DiemGiuaKi = 7.5, DiemCuoiKi = 8 },
+                        new SubjectScore { MaMon = "LY", TenMon = "Vật Lý", DiemMieng = 8, Diem15Phut = 9, DiemGiuaKi = 8.5, DiemCuoiKi = 9 },
+                        new SubjectScore { MaMon = "HOA", TenMon = "Hóa Học", DiemMieng = 9, Diem15Phut = 8, DiemGiuaKi = 8.5, DiemCuoiKi = 8 },
+                        new SubjectScore { MaMon = "SINH", TenMon = "Sinh Học", DiemMieng = 7.5, Diem15Phut = 8, DiemGiuaKi = 8, DiemCuoiKi = 8.5 },
                     };
                 }
                 else
                 {
                     subjectScores = new List<SubjectScore>
                     {
-                new SubjectScore { MaMon = "TOAN", TenMon = "Toán Học", DiemMieng = 8.5f, Diem15Phut = 9, DiemGiuaKi = 9.5f, DiemCuoiKi = 8.5f },
-                new SubjectScore { MaMon = "VAN", TenMon = "Ngữ Văn", DiemMieng = 8.5f, Diem15Phut = 9, DiemGiuaKi = 9, DiemCuoiKi = 9 },
-                new SubjectScore { MaMon = "ANH", TenMon = "Ngoại Ngữ", DiemMieng = 9, Diem15Phut = 8, DiemGiuaKi = 8, DiemCuoiKi = 9 },
-                new SubjectScore { MaMon = "LY", TenMon = "Vật Lý", DiemMieng = 8, Diem15Phut = 8.5f, DiemGiuaKi = 9, DiemCuoiKi = 9 },
-                new SubjectScore { MaMon = "HOA", TenMon = "Hóa Học", DiemMieng = 7.5f, Diem15Phut = 8, DiemGiuaKi = 8.5f, DiemCuoiKi = 8 },
-                new SubjectScore { MaMon = "SINH", TenMon = "Sinh Học", DiemMieng = 8.5f, Diem15Phut = 8, DiemGiuaKi = 9, DiemCuoiKi = 8.5f },
+                        new SubjectScore { MaMon = "TOAN", TenMon = "Toán Học", DiemMieng = 8.5, Diem15Phut = 9, DiemGiuaKi = 9.5, DiemCuoiKi = 8.5 },
+                        new SubjectScore { MaMon = "VAN", TenMon = "Ngữ Văn", DiemMieng = 8.5, Diem15Phut = 9, DiemGiuaKi = 9, DiemCuoiKi = 9 },
+                        new SubjectScore { MaMon = "ANH", TenMon = "Ngoại Ngữ", DiemMieng = 9, Diem15Phut = 8, DiemGiuaKi = 8, DiemCuoiKi = 9 },
+                        new SubjectScore { MaMon = "LY", TenMon = "Vật Lý", DiemMieng = 8, Diem15Phut = 8.5, DiemGiuaKi = 9, DiemCuoiKi = 9 },
+                        new SubjectScore { MaMon = "HOA", TenMon = "Hóa Học", DiemMieng = 7.5, Diem15Phut = 8, DiemGiuaKi = 8.5, DiemCuoiKi = 8 },
+                        new SubjectScore { MaMon = "SINH", TenMon = "Sinh Học", DiemMieng = 8.5, Diem15Phut = 8, DiemGiuaKi = 9, DiemCuoiKi = 8.5 },
                     };
                 }
                 studentScores[student.maHS] = subjectScores;
@@ -263,9 +278,16 @@ namespace oop_final
         {
             try
             {
-                Student student = studentAccounts.FirstOrDefault(s =>
-                    s.hoVaTen.Contains(studentName, StringComparison.OrdinalIgnoreCase) &&
-                    s.maLop == className);
+                Student student = null;
+
+                foreach (Student s in studentAccounts)
+                {
+                    if (s.hoVaTen.Contains(studentName, StringComparison.OrdinalIgnoreCase) && s.maLop == className)
+                    {
+                        student = s;
+                        break;
+                    }
+                }
 
                 if (student == null)
                 {
@@ -283,10 +305,10 @@ namespace oop_final
                     ListViewItem item = new ListViewItem(stt.ToString());
                     item.SubItems.Add(score.MaMon);
                     item.SubItems.Add(score.TenMon);
-                    item.SubItems.Add(score.DiemMieng.ToString("F1"));
-                    item.SubItems.Add(score.Diem15Phut.ToString("F1"));
-                    item.SubItems.Add(score.DiemGiuaKi.ToString("F1"));
-                    item.SubItems.Add(score.DiemCuoiKi.ToString("F1"));
+                    item.SubItems.Add(score.DiemMieng.ToString("F2"));
+                    item.SubItems.Add(score.Diem15Phut.ToString("F2"));
+                    item.SubItems.Add(score.DiemGiuaKi.ToString("F2"));
+                    item.SubItems.Add(score.DiemCuoiKi.ToString("F2"));
                     item.SubItems.Add(score.DiemTBM.ToString("F2"));
 
                     listView1.Items.Add(item);
@@ -304,11 +326,11 @@ namespace oop_final
     {
         public string MaMon { get; set; }
         public string TenMon { get; set; }
-        public float DiemMieng { get; set; }
-        public float Diem15Phut { get; set; }
-        public float DiemGiuaKi { get; set; }
-        public float DiemCuoiKi { get; set; }
-        public float DiemTBM
+        public double DiemMieng { get; set; }
+        public double Diem15Phut { get; set; }
+        public double DiemGiuaKi { get; set; }
+        public double DiemCuoiKi { get; set; }
+        public double DiemTBM
         {
             get
             {
