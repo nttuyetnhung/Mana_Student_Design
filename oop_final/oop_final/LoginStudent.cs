@@ -2,8 +2,7 @@
 {
     public partial class LoginStudent : Form
     {
-        private Dictionary<string, Student> studentAccounts = AccountStudent.Instance.studentAccounts;
-
+        private List<Student> students;
 
         public LoginStudent()
         {
@@ -23,40 +22,56 @@
         {
             string username = txbStudentName.Text;
             string password = txbStudentPass.Text;
-            Dictionary<string, List<SubjectScore>> scoreboard = GetScoreboard();
 
-            foreach (Student student in studentAccounts.Values)
+            Student matchedStudent = students.Find(student =>
+                student.tenDangNhapHS == username &&
+                student.matKhauHS == password);
+
+            if (matchedStudent != null)
             {
-                if (username == student.tenDangNhapHS && password == student.matKhauHS)
-                {
-                    InfoStudent infoStudent = new InfoStudent(student, scoreboard);
-                    this.Hide();
-                    infoStudent.ShowDialog();
-                    this.Show();
-                    return;
-                }
+                Dictionary<string, List<SubjectScore>> scoreboard = CreateScoreboardForStudent(matchedStudent);
+                InfoStudent infoStudent = new InfoStudent(matchedStudent, scoreboard);
+                this.Hide();
+                infoStudent.ShowDialog();
+                this.Show();
+            }
+            else
+            {
                 MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác.", "Thông báo");
-
             }
         }
+        private Dictionary<string, List<SubjectScore>> CreateScoreboardForStudent(Student student)
+        {
+            var scoreboard = new Dictionary<string, List<SubjectScore>>();
+            var subjectScores = new List<SubjectScore>
+            {
+                student.Math,
+                student.Literature,
+                student.ForeignLanguage,
+                student.Physics,
+                student.Chemistry,
+                student.Biology,
+                student.History,
+                student.Geography,
+                student.Civics,
+                student.IT,
+                student.Technology
+            };
+
+            scoreboard[student.maHS] = subjectScores;
+            return scoreboard;
+        }
+
         public bool checkLogin(string username, string password)
         {
-            foreach (Student student in studentAccounts.Values)
-            {
-                if (username == student.tenDangNhapHS && password == student.matKhauHS)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return students.Exists(student =>
+                student.tenDangNhapHS == username &&
+                student.matKhauHS == password);
+
         }
         private void LoginStudent_Load(object sender, EventArgs e)
         {
 
-        }
-        private Dictionary<string, List<SubjectScore>> GetScoreboard()
-        {
-            return new Dictionary<string, List<SubjectScore>>();
         }
     }
 }
