@@ -17,6 +17,14 @@ namespace oop_final
         public string tenDangNhapGV { get; set; }
         public string matKhauGV { get; set; }
 
+        public AccountTeacher QuảnLý
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public Teacher ()
         {
 
